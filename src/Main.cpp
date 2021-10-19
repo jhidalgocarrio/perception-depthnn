@@ -74,6 +74,59 @@ auto DepthToCvImage(at::Tensor tensor, const uint8_t &bits = 1)
     return cv::Mat(height, width, CV_8UC1);
 }
 
+auto transpose(at::Tensor tensor, c10::IntArrayRef dims = { 0, 3, 1, 2 })
+{
+    std::cout << "############### transpose ############" << std::endl;
+    std::cout << "shape before : " << tensor.sizes() << std::endl;
+    tensor = tensor.permute(dims);
+    std::cout << "shape after : " << tensor.sizes() << std::endl;
+    std::cout << "######################################" << std::endl;
+    return tensor;
+}
+
+auto ToTensor(cv::Mat img, bool show_output = false, bool unsqueeze=false, int unsqueeze_dim = 0)
+{
+    std::cout << "image shape: " << img.size() << std::endl;
+    at::Tensor tensor_image = torch::from_blob(img.data, { img.rows, img.cols, 3 }, at::kByte);
+
+    if (unsqueeze)
+    {
+        tensor_image.unsqueeze_(unsqueeze_dim);
+        std::cout << "tensors new shape: " << tensor_image.sizes() << std::endl;
+    }
+
+    if (show_output)
+    {
+        std::cout << tensor_image.slice(2, 0, 1) << std::endl;
+    }
+    std::cout << "tenor shape: " << tensor_image.sizes() << std::endl;
+    return tensor_image;
+}
+
+auto ToInput(at::Tensor tensor_image)
+{
+    // Create a vector of inputs.
+    return std::vector<torch::jit::IValue>{tensor_image};
+}
+
+auto ToCvImage(at::Tensor tensor)
+{
+    int width = tensor.sizes()[0];
+    int height = tensor.sizes()[1];
+    try
+    {
+        cv::Mat output_mat(cv::Size{ height, width }, CV_8UC3, tensor.data_ptr<uchar>());
+
+        show_image(output_mat, "converted image from tensor");
+        return output_mat.clone();
+    }
+    catch (const c10::Error& e)
+    {
+        std::cout << "an error has occured : " << e.msg() << std::endl;
+    }
+    return cv::Mat(height, width, CV_8UC3);
+}
+
 int main(int argc, const char* argv[]) {
   if (argc != 3) {
     std::cerr << "usage: example-app <path-to-exported-script-module> <path-to-input-image>\n";
