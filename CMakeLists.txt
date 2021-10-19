@@ -3,10 +3,10 @@
 cmake_minimum_required(VERSION 3.9)
 project(depthnn
         VERSION 0.1
-        DESCRIPTION "Libtorch C++ depth inference using MiDAS")
+        DESCRIPTION "Test libtorch C++ depth inference using MiDAS")
 find_package(Rock)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 rock_init()

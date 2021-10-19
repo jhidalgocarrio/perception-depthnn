@@ -1,20 +1,13 @@
 <package>
-  <description brief="Libtorch C++ depth inference using MiDAS">
-  Libtorch C++ depth inference using the great MiDAS imnplementation
+  <description brief="Test libtorch C++ depth inference using MiDAS">
+  Test libtorch C++ depth inference using the great MiDAS imnplementation
   </description>
   <author>Javier Hidalgo/havyhidalgo@gmail.com</author>
   <license></license>
   <url>http://</url>
   <logo>http://</logo>
   <depend package="base/cmake" />
-  <!--
-   To add any dependencies use the depend tag
-  <depend package="dummy-dependency-0" />
-	...
-  <depend package="dummy-dependency-n-1" />
-  <depend package="dummy-dependency-n" />
-  -->
   <depend package="base/types" />
   <depend package="opencv" />
-  <depend package="libtorch" />
+  <depend package="tools/torch" />
 </package>
