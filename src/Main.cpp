@@ -103,5 +103,5 @@ int main(int argc, const char* argv[]) {
     cv::Mat img = cv::imread(argv[2], cv::IMREAD_COLOR);
     depthnn::DepthNN midas(argv[1]);
     cv::Mat depthmap = midas.infer(img);
-    cv::imwrite("test/data/out_zichao_depthmap.png", depthmap);
+    cv::imwrite("test/data/out_depthmap.png", depthmap);
 }
