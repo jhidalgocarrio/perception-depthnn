@@ -8,7 +8,7 @@ find_package(Rock)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(ROCK_TEST_ENABLED OFF)
+set(ROCK_TEST_ENABLED ON)
 
 rock_init()
 rock_standard_layout()
