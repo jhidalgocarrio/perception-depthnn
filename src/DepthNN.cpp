@@ -73,7 +73,7 @@ DepthNN::DepthNN(const std::string &filename)
 cv::Mat DepthNN::infer(const cv::Mat &input)
 {
     /** Resize the image **/
-    cv::Mat img; cv::resize(input, img, cv::Size(512, 384), CV_INTER_CUBIC);
+    cv::Mat img; cv::resize(input, img, cv::Size(512, 384), cv::INTER_CUBIC);
 
     /** Image to Tensor **/
     auto tensor_image = torch::from_blob(img.data, {img.rows, img.cols, img.channels()}, at::kByte);
@@ -94,7 +94,7 @@ cv::Mat DepthNN::infer(const cv::Mat &input)
 
     /** Convert prediction to image and resize to the original size **/
     cv::Mat prediction = DepthToCvImage(output.squeeze());
-    cv::resize(prediction, prediction, cv::Size(input.cols, input.rows), CV_INTER_CUBIC);
+    cv::resize(prediction, prediction, cv::Size(input.cols, input.rows), cv::INTER_CUBIC);
 
     return prediction;
 }
